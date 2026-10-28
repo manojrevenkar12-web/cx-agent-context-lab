@@ -1,0 +1,613 @@
+- id: light-change-next-weekend
+  description: Light fare moves her trip two days later, wants a midday flight, accepts the fee
+  channel: voice
+  customer: { first_name: Sanne, last_name: de Vries }
+  booking:
+    ref: K4TR8N
+    fare: light
+    tier: basic
+    route: AMS-MUC
+    date: "2026-11-20"
+    slot: morning
+    bags: 0
+    seat: 14C
+    paid: 79
+  goals:
+    - { intent: change_flight, date: "2026-11-22", prefer: midday, accept: true }
+
+- id: gold-classic-change-chat
+  description: Gold member on a Classic fare moves a business trip one day later
+  channel: chat
+  customer: { first_name: Oliver, last_name: Bennett }
+  booking:
+    ref: GL5W2Q
+    fare: classic
+    tier: gold
+    route: FRA-LHR
+    date: "2026-11-18"
+    slot: evening
+    bags: 1
+    seat: 8A
+    paid: 245
+  goals:
+    - { intent: change_flight, date: "2026-11-19", prefer: morning, accept: true }
+
+- id: light-change-to-christmas-declined
+  description: Wants to move a cheap November ticket to the last week before Christmas, says no to the price
+  channel: voice
+  customer: { first_name: Lucía, last_name: Fernández }
+  booking:
+    ref: M9DX3B
+    fare: light
+    tier: silver
+    route: BER-MAD
+    date: "2026-11-25"
+    slot: midday
+    bags: 0
+    seat: 26F
+    paid: 112
+  goals:
+    - { intent: change_flight, date: "2026-12-18", prefer: evening, accept: false }
+
+- id: change-inside-three-hours-voice
+  description: Calls a little over two hours before a 12:35 departure wanting tomorrow's flight instead
+  channel: voice
+  call_at: "2026-11-10T10:05"
+  customer: { first_name: Tobias, last_name: Gruber }
+  booking:
+    ref: H2VE6K
+    fare: classic
+    tier: basic
+    route: HAM-VIE
+    date: "2026-11-10"
+    slot: midday
+    bags: 1
+    seat: 17D
+    paid: 156
+  goals:
+    - { intent: change_flight, date: "2026-11-11", prefer: morning, accept: true }
+
+- id: flex-change-inside-three-hours-chat
+  description: Flex passenger writes in at 16:20 about the 18:50 flight the same evening
+  channel: chat
+  call_at: "2026-11-12T16:20"
+  customer: { first_name: Noémie, last_name: Rochat }
+  booking:
+    ref: Z7RC1F
+    fare: flex
+    tier: silver
+    route: ZRH-DUS
+    date: "2026-11-12"
+    slot: evening
+    bags: 1
+    seat: 11B
+    paid: 310
+  goals:
+    - { intent: change_flight, date: "2026-11-13", accept: true }
+
+- id: change-just-outside-three-hours
+  description: Calls three hours twenty before an 18:50 departure and moves to the next evening
+  channel: voice
+  call_at: "2026-11-14T15:30"
+  customer: { first_name: Mads, last_name: Kristensen }
+  booking:
+    ref: C3PH9L
+    fare: classic
+    tier: silver
+    route: CPH-FRA
+    date: "2026-11-14"
+    slot: evening
+    bags: 1
+    seat: 20E
+    paid: 178
+  goals:
+    - { intent: change_flight, date: "2026-11-15", prefer: evening, accept: true }
+
+- id: flex-change-to-last-day
+  description: Flex booking moved to the last flight date on sale, likely costs more
+  channel: chat
+  customer: { first_name: Giulia, last_name: Marchetti }
+  booking:
+    ref: R5FB4T
+    fare: flex
+    tier: basic
+    route: FCO-BER
+    date: "2026-11-27"
+    slot: morning
+    bags: 1
+    seat: 12A
+    paid: 289
+  goals:
+    - { intent: change_flight, date: "2026-12-19", prefer: evening, accept: true }
+
+- id: light-add-one-bag-chat
+  description: Light fare traveller realises nothing is included and adds one suitcase
+  channel: chat
+  customer: { first_name: João, last_name: Carvalho }
+  booking:
+    ref: L8SB2M
+    fare: light
+    tier: basic
+    route: LIS-MUC
+    date: "2026-11-21"
+    slot: midday
+    bags: 0
+    seat: 23C
+    paid: 94
+  goals:
+    - { intent: add_bag, pieces: 1, accept: true }
+
+- id: bags-beyond-limit
+  description: Already has two bags and asks for two more for ski gear
+  channel: voice
+  customer: { first_name: Alessandro, last_name: Ricci }
+  booking:
+    ref: F6RA7Y
+    fare: classic
+    tier: silver
+    route: FRA-FCO
+    date: "2026-12-05"
+    slot: morning
+    bags: 2
+    seat: 15D
+    paid: 214
+  goals:
+    - { intent: add_bag, pieces: 2, accept: true }
+
+- id: gold-light-bags-declined
+  description: Gold member on Light asks for two extra bags, hears the price and decides to pack less
+  channel: chat
+  customer: { first_name: Camille, last_name: Laurent }
+  booking:
+    ref: P2CD8X
+    fare: light
+    tier: gold
+    route: CDG-BER
+    date: "2026-11-29"
+    slot: evening
+    bags: 1
+    seat: 10F
+    paid: 102
+  goals:
+    - { intent: add_bag, pieces: 2, accept: false }
+
+- id: already-three-bags
+  description: Flex booking already carries three bags, caller wants one more
+  channel: voice
+  customer: { first_name: Hiroshi, last_name: Tanaka }
+  booking:
+    ref: T4MQ5G
+    fare: flex
+    tier: basic
+    route: MUC-CDG
+    date: "2026-12-02"
+    slot: midday
+    bags: 3
+    seat: 19A
+    paid: 336
+  goals:
+    - { intent: add_bag, pieces: 1, accept: true }
+
+- id: seat-window-upfront-chat
+  description: Gives everything in the first message and just wants a window seat
+  channel: chat
+  reveal: upfront
+  customer: { first_name: Aisha, last_name: Rahman }
+  booking:
+    ref: W9LN3H
+    fare: classic
+    tier: basic
+    route: LHR-BER
+    date: "2026-11-17"
+    slot: morning
+    bags: 1
+    seat: 22E
+    paid: 163
+  goals:
+    - { intent: seat, prefer: window }
+
+- id: seat-aisle-voice
+  description: Tall passenger stuck at a window wants an aisle
+  channel: voice
+  customer: { first_name: Lars, last_name: Johansson }
+  booking:
+    ref: A7VK2D
+    fare: light
+    tier: silver
+    route: VIE-HAM
+    date: "2026-11-13"
+    slot: evening
+    bags: 0
+    seat: 9A
+    paid: 88
+  goals:
+    - { intent: seat, prefer: aisle }
+
+- id: flex-gold-cancel
+  description: Gold member cancels a Flex booking after a meeting was called off
+  channel: voice
+  customer: { first_name: Fiona, last_name: MacLeod }
+  booking:
+    ref: X3GJ6R
+    fare: flex
+    tier: gold
+    route: LHR-FRA
+    date: "2026-11-24"
+    slot: morning
+    bags: 1
+    seat: 8C
+    paid: 354
+  goals:
+    - { intent: cancel, accept: true }
+
+- id: light-cancel-declined
+  description: Wants to cancel a Light ticket, keeps it after hearing how little comes back
+  channel: chat
+  customer: { first_name: Mateo, last_name: Gómez }
+  booking:
+    ref: B5NW1E
+    fare: light
+    tier: basic
+    route: MAD-BER
+    date: "2026-12-11"
+    slot: midday
+    bags: 0
+    seat: 27B
+    paid: 68
+  goals:
+    - { intent: cancel, accept: false }
+
+- id: classic-cancel-chat
+  description: Classic fare cancelled, caller accepts the deduction
+  channel: chat
+  customer: { first_name: Emma, last_name: Janssen }
+  booking:
+    ref: J8HT4U
+    fare: classic
+    tier: silver
+    route: MUC-AMS
+    date: "2026-12-08"
+    slot: evening
+    bags: 1
+    seat: 16A
+    paid: 140
+  goals:
+    - { intent: cancel, accept: true }
+
+- id: refund-status-chat
+  description: Asks where the money for a cancelled trip is
+  channel: chat
+  customer: { first_name: Reto, last_name: Brunner }
+  booking:
+    ref: D2ZU7S
+    fare: flex
+    tier: basic
+    route: DUS-ZRH
+    date: "2026-11-19"
+    slot: morning
+    bags: 1
+    seat: 13D
+    paid: 271
+  goals:
+    - { intent: refund_status }
+
+- id: refund-status-chatty-gold
+  description: Talkative gold member asks about a refund between stories about her grandchildren
+  tags: [long]
+  channel: voice
+  chatter: 18
+  customer: { first_name: Margarethe, last_name: Wagner }
+  booking:
+    ref: N6KP9C
+    fare: classic
+    tier: gold
+    route: BER-LHR
+    date: "2026-12-03"
+    slot: midday
+    bags: 1
+    seat: 18C
+    paid: 198
+  goals:
+    - { intent: refund_status }
+
+- id: flight-status-same-morning
+  description: Calls in the morning to check the midday flight is on time
+  channel: voice
+  call_at: "2026-11-10T08:40"
+  customer: { first_name: Pierre, last_name: Dubois }
+  booking:
+    ref: S1BC5V
+    fare: light
+    tier: basic
+    route: BER-CDG
+    date: "2026-11-10"
+    slot: midday
+    bags: 0
+    seat: 24F
+    paid: 72
+  goals:
+    - { intent: flight_status }
+
+- id: flight-status-chat-tomorrow
+  description: Checks tomorrow morning's flight before booking a taxi
+  channel: chat
+  customer: { first_name: Freja, last_name: Nielsen }
+  booking:
+    ref: E7QF3W
+    fare: classic
+    tier: silver
+    route: FRA-CPH
+    date: "2026-11-11"
+    slot: morning
+    bags: 1
+    seat: 21A
+    paid: 149
+  goals:
+    - { intent: flight_status }
+
+- id: update-email-upfront
+  description: New job, new email address, gives it all at once
+  channel: chat
+  reveal: upfront
+  customer: { first_name: Priya, last_name: Nair }
+  booking:
+    ref: U3DM8A
+    fare: light
+    tier: basic
+    route: LHR-FRA
+    date: "2026-12-14"
+    slot: evening
+    bags: 0
+    seat: 28D
+    paid: 84
+  goals:
+    - { intent: update_contact, email: priya.nair.work@example.com }
+
+- id: update-phone-voice
+  description: Lost his phone and has a new Polish number
+  channel: voice
+  customer: { first_name: Piotr, last_name: Kowalski }
+  booking:
+    ref: Y5WG2K
+    fare: flex
+    tier: silver
+    route: CDG-MUC
+    date: "2026-11-26"
+    slot: morning
+    bags: 1
+    seat: 9D
+    paid: 302
+  goals:
+    - { intent: update_contact, phone: "+48 601 234 567" }
+
+- id: claim-long-delay
+  description: Flight yesterday left nearly four hours late, wants compensation
+  channel: voice
+  customer: { first_name: Francesca, last_name: Lombardi }
+  booking:
+    ref: Q8RV4N
+    fare: classic
+    tier: basic
+    route: BER-FCO
+    date: "2026-11-09"
+    slot: evening
+    bags: 1
+    seat: 14B
+    paid: 187
+  goals:
+    - intent: claim
+      text: "My flight last night left almost four hours late and I got home after two in the morning. I want the compensation I'm entitled to."
+
+- id: claim-damaged-bag-gold
+  description: Gold member's suitcase came off the belt with a broken wheel
+  channel: chat
+  customer: { first_name: Ana, last_name: Pereira }
+  booking:
+    ref: V2LS6P
+    fare: flex
+    tier: gold
+    route: MUC-LIS
+    date: "2026-11-09"
+    slot: morning
+    bags: 1
+    seat: 10A
+    paid: 276
+  goals:
+    - intent: claim
+      text: "My suitcase arrived in Lisbon with a wheel snapped off and a crack down the side. I need you to pay for a new one."
+
+- id: wheelchair-voice
+  description: Recovering from knee surgery, asks for wheelchair help at both airports
+  channel: voice
+  customer: { first_name: Katarina, last_name: Novak }
+  booking:
+    ref: H9YB3Z
+    fare: light
+    tier: silver
+    route: VIE-HAM
+    date: "2026-12-06"
+    slot: midday
+    bags: 0
+    seat: 25C
+    paid: 97
+  goals:
+    - { intent: assistance }
+
+- id: aisle-seat-then-wheelchair
+  description: Older traveller wants an aisle seat and help through the airport
+  channel: chat
+  customer: { first_name: Mehmet, last_name: Yılmaz }
+  booking:
+    ref: G6FK1M
+    fare: classic
+    tier: basic
+    route: BER-MAD
+    date: "2026-11-30"
+    slot: morning
+    bags: 1
+    seat: 19F
+    paid: 172
+  goals:
+    - { intent: seat, prefer: aisle }
+    - { intent: assistance }
+
+- id: upfront-change-bag-seat-long
+  description: Gives three requests in the first breath, then chats at length; bag and seat details needed much later
+  tags: [long]
+  channel: voice
+  reveal: upfront
+  chatter: 25
+  customer: { first_name: Siobhan, last_name: O'Connor }
+  booking:
+    ref: O4XT7J
+    fare: classic
+    tier: silver
+    route: LHR-BER
+    date: "2026-12-01"
+    slot: midday
+    bags: 1
+    seat: 26B
+    paid: 205
+  goals:
+    - { intent: change_flight, date: "2026-12-04", prefer: morning, accept: true }
+    - { intent: add_bag, pieces: 1, accept: true }
+    - { intent: seat, prefer: window }
+
+- id: lost-bag-claim-and-email
+  description: Bag never arrived; files a complaint and fixes a typo in her email address along the way
+  tags: [long]
+  channel: voice
+  chatter: 20
+  customer: { first_name: Ngozi, last_name: Okafor }
+  booking:
+    ref: I7PM2R
+    fare: light
+    tier: basic
+    route: CPH-FRA
+    date: "2026-11-09"
+    slot: midday
+    bags: 1
+    seat: 12E
+    paid: 118
+  goals:
+    - intent: claim
+      text: "My checked bag never showed up in Frankfurt and nobody has called me back. It has my work laptop charger and all my clothes in it."
+    - { intent: update_contact, email: ngozi.okafor@example.org }
+
+- id: gold-flex-change-and-too-many-bags
+  description: Gold member on Flex moves the trip and asks for three more bags on top of one already booked
+  tags: [long]
+  channel: chat
+  reveal: upfront
+  customer: { first_name: Rafael, last_name: Moreno }
+  booking:
+    ref: K2EW8D
+    fare: flex
+    tier: gold
+    route: AMS-MUC
+    date: "2026-12-10"
+    slot: evening
+    bags: 1
+    seat: 11C
+    paid: 398
+  goals:
+    - { intent: change_flight, date: "2026-12-12", prefer: midday, accept: true }
+    - { intent: add_bag, pieces: 3, accept: true }
+    - { intent: flight_status }
+
+- id: cancel-declined-then-change
+  description: Light fare caller first wants to cancel, keeps the booking after the price and moves it instead
+  channel: voice
+  customer: { first_name: Andrei, last_name: Popescu }
+  booking:
+    ref: M3CN9A
+    fare: light
+    tier: basic
+    route: ZRH-DUS
+    date: "2026-11-16"
+    slot: morning
+    bags: 0
+    seat: 15A
+    paid: 81
+  goals:
+    - { intent: cancel, accept: false }
+    - { intent: change_flight, date: "2026-11-23", accept: true }
+
+- id: marathon-call-status-seat-bag
+  description: Very chatty caller checks her flight, wants an aisle and adds a bag
+  tags: [long]
+  channel: voice
+  chatter: 40
+  customer: { first_name: Dolores, last_name: Ramírez }
+  booking:
+    ref: Y8HD4F
+    fare: light
+    tier: gold
+    route: FCO-FRA
+    date: "2026-11-15"
+    slot: evening
+    bags: 0
+    seat: 22A
+    paid: 129
+  goals:
+    - { intent: flight_status }
+    - { intent: seat, prefer: aisle }
+    - { intent: add_bag, pieces: 1, accept: true }
+
+- id: inside-window-then-bag
+  description: Writes ninety minutes before departure wanting the next day instead, then also asks to add a bag
+  channel: chat
+  call_at: "2026-11-11T05:40"
+  customer: { first_name: Wei, last_name: Chen }
+  booking:
+    ref: P9TU6S
+    fare: classic
+    tier: basic
+    route: CDG-MUC
+    date: "2026-11-11"
+    slot: morning
+    bags: 1
+    seat: 17F
+    paid: 166
+  goals:
+    - { intent: change_flight, date: "2026-11-12", prefer: evening, accept: true }
+    - { intent: add_bag, pieces: 1, accept: true }
+
+- id: silver-change-decline-then-refund-question
+  description: Asks about an old refund, then checks what moving the flight would cost and says no
+  channel: chat
+  chatter: 6
+  customer: { first_name: Yasmin, last_name: Haddad }
+  booking:
+    ref: R4AB7Q
+    fare: classic
+    tier: silver
+    route: BER-FCO
+    date: "2026-12-12"
+    slot: morning
+    bags: 1
+    seat: 20C
+    paid: 231
+  goals:
+    - { intent: refund_status }
+    - { intent: change_flight, date: "2026-12-19", prefer: morning, accept: false }
+
+- id: phone-update-and-wheelchair-long
+  description: Recovering from a hip operation; new phone number and wheelchair help, lots of small talk
+  tags: [long]
+  channel: voice
+  chatter: 16
+  customer: { first_name: Kwame, last_name: Mensah }
+  booking:
+    ref: T6JX2B
+    fare: flex
+    tier: basic
+    route: HAM-VIE
+    date: "2026-12-17"
+    slot: midday
+    bags: 2
+    seat: 13B
+    paid: 264
+  goals:
+    - { intent: update_contact, phone: "+49 151 2345 6789" }
+    - { intent: assistance }

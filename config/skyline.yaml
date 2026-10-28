@@ -1,0 +1,21 @@
+# Skyline Air, the fictional airline the lab's agent works for. Its fare rules are the business
+# rules the backend applies and the grader checks; the agent only learns them through tools.
+currency: EUR
+today: "2026-11-10"
+schedule_days: 40
+routes: [BER-LHR, BER-CDG, BER-MAD, MUC-AMS, MUC-LIS, FRA-FCO, FRA-CPH, HAM-VIE, DUS-ZRH, BER-FCO, MUC-CDG, FRA-LHR]
+slots:
+  morning: "07:10"
+  midday: "12:35"
+  evening: "18:50"
+fares:
+  light:   { change_fee: 70, cancel_refund: taxes_only, included_bags: 0 }
+  classic: { change_fee: 40, cancel_refund: minus_fee, cancel_fee: 60, included_bags: 1 }
+  flex:    { change_fee: 0,  cancel_refund: full, included_bags: 1 }
+taxes_refund: 38
+bag_price: 35
+max_bags: 3
+gold_waives_change_fee: true
+legacy_change_flat_fee: 90       # what the deprecated endpoint charges, whatever the fare
+no_change_within_hours: 3        # inside this, changes go to a person
+quote_valid_minutes: 15

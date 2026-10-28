@@ -1,0 +1,119 @@
+/* Tokens. Every colour, size and duration in the console comes from here. */
+:root {
+  --paper: #f4f5f2;
+  --paper-raised: #ffffff;
+  --ink: #14202e;
+  --graphite: #4f5967;
+  --rule: #d9ddd6;
+  --focus: #0f5fb8;
+
+  /* the token ribbon: what each slice of a request cost */
+  --read: #0f7c7a; /* read from cache */
+  --write: #c98712; /* written to cache */
+  --uncached: #98a1ad; /* plain input */
+  --output: #6b4c9a; /* generated */
+
+  --pass: #3f7a32;
+  --fail: #b3412e;
+
+  --verdict-handoff: #0f7c7a;
+  --verdict-publish: #2f5d9b;
+  --verdict-iterate: #a46a0c;
+  --verdict-kill: #8a3324;
+
+  --font-ui: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-prose: "Newsreader", Georgia, serif;
+
+  --step--1: 0.8125rem;
+  --step-0: 0.9375rem;
+  --step-1: 1.125rem;
+  --step-2: 1.5rem;
+  --step-3: 2.25rem;
+  --step-4: 3.25rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.25rem;
+  --space-7: 3.5rem;
+
+  --measure: 68ch;
+  --page: 72rem;
+  --radius-small: 4px;
+  --radius: 8px;
+  --ribbon-height: 14px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur: 320ms;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0f1620;
+    --paper-raised: #16202c;
+    --ink: #e7ebef;
+    --graphite: #a6afba;
+    --rule: #2a3542;
+    --focus: #7db3ff;
+    --read: #38b2ae;
+    --write: #e3a83a;
+    --uncached: #6d7783;
+    --output: #a688d6;
+    --pass: #7fc06e;
+    --fail: #ec7a63;
+    --verdict-handoff: #38b2ae;
+    --verdict-publish: #7aa6e6;
+    --verdict-iterate: #e3a83a;
+    --verdict-kill: #ec7a63;
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 var(--step-0) / 1.5 var(--font-ui);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-small);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion must win over every component rule */
+    transition-duration: 0ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion must win over every component rule */
+    animation-duration: 0ms !important;
+  }
+}

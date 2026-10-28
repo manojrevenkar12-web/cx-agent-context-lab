@@ -1,0 +1,31 @@
+# The simulated model. It is deterministic and context-faithful: it can only use facts that are in
+# the request it receives, and it pays for every token by the provider's caching rules. Effects
+# that need a real model are parameters here, each marked with what it is based on.
+
+latency:
+  # TTFT = base + uncached prefill + cached prefill; total = TTFT + output tokens x decode
+  base_ms: 380
+  prefill_ms_per_uncached_token: 0.11
+  prefill_ms_per_cached_token: 0.015
+  decode_ms_per_token: 14
+  # sanity range: provider caching studies report 13-31% TTFT improvement on agent workloads
+  # (arXiv 2601.06007, "Don't Break the Cache")
+
+tool_selection:
+  # Probability of picking a confusable sibling tool (e.g. a deprecated or partner variant) when
+  # the right tool and its siblings are all visible. Grows with the number of tool definitions in
+  # context. Anthropic reports MCP-eval accuracy rising from 49% to 74% (Opus 4) when tool search
+  # replaces loading every definition; this curve is an ASSUMPTION shaped after that, not a measurement.
+  base: 0.01
+  per_doubling_over: 16
+  slope_per_doubling: 0.055
+  max: 0.35
+
+summary:
+  # A prose summary written by a model keeps the gist and loses specifics. The simulated summariser
+  # keeps these fact kinds and drops the rest (an ASSUMPTION; with a live model the summary is real).
+  keeps: [booking_ref, last_name, intent, completed]
+  output_tokens: 180
+
+output:
+  tokens_per_reply_word: 1.35

@@ -1,0 +1,15 @@
+# The agent under test. Context and tool-loading settings are what the bets vary; the lab's bet
+# definitions (config/bets.yaml) pick among them.
+max_tokens: 1024
+max_steps_per_turn: 12         # model calls per customer turn before the agent hands over
+tool_search:
+  top_k: 5                     # tool definitions returned per search
+context:
+  window:
+    keep_turns: 6              # customer turns kept; older ones are dropped
+  summary:
+    trigger_tokens: 3000       # summarise older turns once the unsummarised part exceeds this
+    keep_turns: 3              # most recent customer turns always kept verbatim
+  casefile:
+    budget_tokens: 3000        # move the checkpoint once the part after it exceeds this
+    keep_turns: 3

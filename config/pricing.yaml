@@ -1,0 +1,27 @@
+# Prices and caching rules per provider. Prices are illustrative list prices per million tokens:
+# set your contract prices here. Caching rules are the providers' documented behaviour.
+providers:
+  anthropic:
+    model: claude-sonnet-class
+    input_per_mtok: 3.00
+    output_per_mtok: 15.00
+    cache:
+      kind: breakpoints              # explicit cache_control breakpoints, prefix order tools -> system -> messages
+      write_multiplier_5m: 1.25      # source: platform.claude.com/docs/en/build-with-claude/prompt-caching
+      write_multiplier_1h: 2.0
+      read_multiplier: 0.10          # "standard"; newest models read at 0.05x or less
+      min_tokens: 1024               # per model; 512 to 4096 depending on the model
+      max_breakpoints: 4
+      lookback_blocks: 20            # each breakpoint checks at most 20 blocks backwards for a prior write
+      ttl_seconds: 300
+  openai:
+    model: gpt-class
+    input_per_mtok: 1.25
+    output_per_mtok: 10.00
+    cache:
+      kind: automatic                # prefixes of 1,024+ tokens cached automatically, in 128-token steps
+      read_multiplier: 0.10          # cached input billed at a tenth on current models
+      write_multiplier_5m: 1.0       # no write surcharge
+      min_tokens: 1024
+      increment_tokens: 128
+      ttl_seconds: 600               # inactivity window; retention can be extended

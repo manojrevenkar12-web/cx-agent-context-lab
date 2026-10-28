@@ -1,0 +1,38 @@
+{
+  "name": "cx-agent-context-lab",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run",
+    "lab": "tsx packages/lab/src/cli.ts",
+    "api": "tsx apps/api/src/main.ts",
+    "lint": "biome check ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "@types/node": "22.18.0",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vite": "^8.3.4",
+    "vitest": "5.0.4"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.5",
+    "@modelcontextprotocol/client": "2.3.1",
+    "@modelcontextprotocol/core": "2.3.1",
+    "@modelcontextprotocol/ext-apps": "2.0.3",
+    "@modelcontextprotocol/server": "2.3.1",
+    "gpt-tokenizer": "4.0.0",
+    "hono": "4.13.13",
+    "yaml": "2.9.1",
+    "zod": "4.6.7"
+  }
+}

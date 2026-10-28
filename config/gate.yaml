@@ -1,0 +1,6 @@
+# The release gate (`npm run lab -- gate`): what must hold before results or the agent change ship.
+recommended: { layout: stable-tail, tools: search-dispatch, context: full, cache: auto }
+min_resolved_rate: 0.95          # recommended setup on the dev set, every provider
+max_policy_breaches: 0           # unverified access or unquoted changes, recommended setup
+min_cache_read_share: 0.80       # recommended setup must actually use the cache
+heldout_required: [blind-1]      # held-out sets whose first run must be on record

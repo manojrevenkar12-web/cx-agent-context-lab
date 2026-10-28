@@ -1,0 +1,1671 @@
+{
+ "scenarioSet": "scenarios/dev",
+ "seeds": 3,
+ "bets": [
+  {
+   "id": "cache-layout",
+   "title": "Where the changing parts of the prompt go",
+   "question": "How much of an agent's input bill and first-word latency is lost to a prompt layout that breaks the provider's cache?",
+   "scenarioSet": "scenarios/dev",
+   "primary": "cost_per_conversation",
+   "also": [
+    "first_word_p95_ms",
+    "cache_read_share"
+   ],
+   "runs": [
+    {
+     "provider": "anthropic",
+     "chatterScale": 1,
+     "baseline": {
+      "config": "anthropic/dynamic-first/all/full/cache-auto",
+      "label": "dynamic-first",
+      "metrics": {
+       "cost_per_conversation": 0.058754170454545465,
+       "resolved_rate": 1,
+       "first_word_p50_ms": 604.2425000000076,
+       "first_word_p95_ms": 761.2565000000293,
+       "cache_read_share": 0.9751978686149819,
+       "cache_write_share": 0.024802131385018033,
+       "wrong_tool_calls": 0.48484848484848486,
+       "repeat_asks": 0,
+       "model_calls": 10.318181818181818,
+       "input_tokens": 141117.51515151514,
+       "transcript_tokens": 849.469696969697,
+       "handoff_rate": 0.13636363636363635
+      },
+      "failures": {}
+     },
+     "arms": [
+      {
+       "config": "anthropic/stable-first/all/full/cache-auto",
+       "label": "stable-first",
+       "metrics": {
+        "cost_per_conversation": 0.052259911363636356,
+        "resolved_rate": 1,
+        "first_word_p50_ms": 589.8974999999919,
+        "first_word_p95_ms": 659.9600000000006,
+        "cache_read_share": 0.9885370628133269,
+        "cache_write_share": 0.011462937186673131,
+        "wrong_tool_calls": 0.48484848484848486,
+        "repeat_asks": 0,
+        "model_calls": 10.318181818181818,
+        "input_tokens": 141117.51515151514,
+        "transcript_tokens": 849.469696969697,
+        "handoff_rate": 0.13636363636363635
+       },
+       "failures": {}
+      },
+      {
+       "config": "anthropic/stable-tail/all/full/cache-auto",
+       "label": "stable-tail",
+       "metrics": {
+        "cost_per_conversation": 0.05019920454545455,
+        "resolved_rate": 0.9848484848484849,
+        "first_word_p50_ms": 589.9274999999907,
+        "first_word_p95_ms": 618.1149999999907,
+        "cache_read_share": 0.9913904464815417,
+        "cache_write_share": 0.00860955351845827,
+        "wrong_tool_calls": 0.3484848484848485,
+        "repeat_asks": 0,
+        "model_calls": 10.151515151515152,
+        "input_tokens": 139341.33333333334,
+        "transcript_tokens": 931.7727272727273,
+        "handoff_rate": 0.13636363636363635
+       },
+       "failures": {
+        "change charged N, expected N": 1,
+        "policy breach: unquoted_change": 1
+       }
+      }
+     ],
+     "variants": [
+      {
+       "config": "anthropic/stable-first/all/full/cache-auto",
+       "label": "stable-first",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.058754170454545465,
+         "variant": 0.052259911363636356,
+         "gain": 0.11053273394325809,
+         "ci": [
+          0.09466030704543911,
+          0.12819372911264804
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 761.2565000000293,
+         "variant": 659.9600000000006,
+         "gain": 0.1330648736661359,
+         "ci": [
+          0.13108746119937728,
+          0.15661929076482622
+         ]
+        },
+        {
+         "metric": "cache_read_share",
+         "base": 0.9751978686149819,
+         "variant": 0.9885370628133269,
+         "gain": 0.01367844888472721,
+         "ci": [
+          0.011320371519682642,
+          0.0164358163883739
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 1,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "publish",
+       "reasons": [
+        "cost per conversation improves 11.1% (95% CI 9.5% to 12.8%): real, below the hand-off bar"
+       ],
+       "assumptions": []
+      },
+      {
+       "config": "anthropic/stable-tail/all/full/cache-auto",
+       "label": "stable-tail",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.058754170454545465,
+         "variant": 0.05019920454545455,
+         "gain": 0.1456061049438078,
+         "ci": [
+          0.12418249367977857,
+          0.1664074279170355
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 761.2565000000293,
+         "variant": 618.1149999999907,
+         "gain": 0.18803320562784437,
+         "ci": [
+          0.173495501383427,
+          0.22946342877088935
+         ]
+        },
+        {
+         "metric": "cache_read_share",
+         "base": 0.9751978686149819,
+         "variant": 0.9913904464815417,
+         "gain": 0.016604402437381458,
+         "ci": [
+          0.013760966619250994,
+          0.019898315742445556
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 0.9848484848484849,
+         "gain": -0.015151515151515138,
+         "ci": [
+          -0.045454545454545414,
+          0
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "publish",
+       "reasons": [
+        "cost per conversation improves 14.6% (95% CI 12.4% to 16.6%): real, below the hand-off bar"
+       ],
+       "assumptions": []
+      }
+     ],
+     "conversations": 66
+    },
+    {
+     "provider": "openai",
+     "chatterScale": 1,
+     "baseline": {
+      "config": "openai/dynamic-first/all/full/cache-auto",
+      "label": "dynamic-first",
+      "metrics": {
+       "cost_per_conversation": 0.02508407575757576,
+       "resolved_rate": 1,
+       "first_word_p50_ms": 610.5150000000067,
+       "first_word_p95_ms": 765.8165000000037,
+       "cache_read_share": 0.9713494749057201,
+       "cache_write_share": 0,
+       "wrong_tool_calls": 0.48484848484848486,
+       "repeat_asks": 0,
+       "model_calls": 10.318181818181818,
+       "input_tokens": 141117.51515151514,
+       "transcript_tokens": 849.469696969697,
+       "handoff_rate": 0.13636363636363635
+      },
+      "failures": {}
+     },
+     "arms": [
+      {
+       "config": "openai/stable-first/all/full/cache-auto",
+       "label": "stable-first",
+       "metrics": {
+        "cost_per_conversation": 0.023028803030303035,
+        "resolved_rate": 1,
+        "first_word_p50_ms": 593.7950000001001,
+        "first_word_p95_ms": 667.75,
+        "cache_read_share": 0.9842954872341513,
+        "cache_write_share": 0,
+        "wrong_tool_calls": 0.48484848484848486,
+        "repeat_asks": 0,
+        "model_calls": 10.318181818181818,
+        "input_tokens": 141117.51515151514,
+        "transcript_tokens": 849.469696969697,
+        "handoff_rate": 0.13636363636363635
+       },
+       "failures": {}
+      },
+      {
+       "config": "openai/stable-tail/all/full/cache-auto",
+       "label": "stable-tail",
+       "metrics": {
+        "cost_per_conversation": 0.02230039393939394,
+        "resolved_rate": 0.9848484848484849,
+        "first_word_p50_ms": 596.5100000000093,
+        "first_word_p95_ms": 624.2479999999981,
+        "cache_read_share": 0.9869602963205244,
+        "cache_write_share": 0,
+        "wrong_tool_calls": 0.3484848484848485,
+        "repeat_asks": 0,
+        "model_calls": 10.151515151515152,
+        "input_tokens": 139341.33333333334,
+        "transcript_tokens": 931.7727272727273,
+        "handoff_rate": 0.13636363636363635
+       },
+       "failures": {
+        "change charged N, expected N": 1,
+        "policy breach: unquoted_change": 1
+       }
+      }
+     ],
+     "variants": [
+      {
+       "config": "openai/stable-first/all/full/cache-auto",
+       "label": "stable-first",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.02508407575757576,
+         "variant": 0.023028803030303035,
+         "gain": 0.0819353579990685,
+         "ci": [
+          0.0694152762407594,
+          0.09663122481910788
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 765.8165000000037,
+         "variant": 667.75,
+         "gain": 0.12805482775573937,
+         "ci": [
+          0.1261247244911475,
+          0.16162478459085733
+         ]
+        },
+        {
+         "metric": "cache_read_share",
+         "base": 0.9713494749057201,
+         "variant": 0.9842954872341513,
+         "gain": 0.01332786259001965,
+         "ci": [
+          0.011270487054889932,
+          0.015745008915282917
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 1,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "kill",
+       "reasons": [
+        "cost per conversation improves 8.2% (95% CI 6.9% to 9.7%); the bar is 10.0%"
+       ],
+       "assumptions": []
+      },
+      {
+       "config": "openai/stable-tail/all/full/cache-auto",
+       "label": "stable-tail",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.02508407575757576,
+         "variant": 0.02230039393939394,
+         "gain": 0.11097406358857402,
+         "ci": [
+          0.09345789875409542,
+          0.12907296487267234
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 765.8165000000037,
+         "variant": 624.2479999999981,
+         "gain": 0.18485955839291118,
+         "ci": [
+          0.16924631254739256,
+          0.22351195404988655
+         ]
+        },
+        {
+         "metric": "cache_read_share",
+         "base": 0.9713494749057201,
+         "variant": 0.9869602963205244,
+         "gain": 0.016071271790536044,
+         "ci": [
+          0.013161670205080616,
+          0.01923543197884836
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 0.9848484848484849,
+         "gain": -0.015151515151515138,
+         "ci": [
+          -0.045454545454545414,
+          0
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "publish",
+       "reasons": [
+        "cost per conversation improves 11.1% (95% CI 9.3% to 12.9%): real, below the hand-off bar"
+       ],
+       "assumptions": []
+      }
+     ],
+     "conversations": 66
+    }
+   ],
+   "verdict": "publish",
+   "headline": "stable-tail: cost per conversation improves 14.6% (95% CI 12.4% to 16.6%): real, below the hand-off bar (anthropic)."
+  },
+  {
+   "id": "tool-loading",
+   "title": "Loading 150 tool definitions versus searching for them",
+   "question": "Does searching the tool catalogue beat loading every definition, and does the way found tools are added matter for the cache?",
+   "scenarioSet": "scenarios/dev",
+   "primary": "cost_per_conversation",
+   "also": [
+    "wrong_tool_calls",
+    "first_word_p95_ms",
+    "model_calls"
+   ],
+   "runs": [
+    {
+     "provider": "anthropic",
+     "chatterScale": 1,
+     "baseline": {
+      "config": "anthropic/stable-tail/all/full/cache-auto",
+      "label": "all",
+      "metrics": {
+       "cost_per_conversation": 0.05019920454545455,
+       "resolved_rate": 0.9848484848484849,
+       "first_word_p50_ms": 589.9274999999907,
+       "first_word_p95_ms": 618.1149999999907,
+       "cache_read_share": 0.9913904464815417,
+       "cache_write_share": 0.00860955351845827,
+       "wrong_tool_calls": 0.3484848484848485,
+       "repeat_asks": 0,
+       "model_calls": 10.151515151515152,
+       "input_tokens": 139341.33333333334,
+       "transcript_tokens": 931.7727272727273,
+       "handoff_rate": 0.13636363636363635
+      },
+      "failures": {
+       "change charged N, expected N": 1,
+       "policy breach: unquoted_change": 1
+      }
+     },
+     "arms": [
+      {
+       "config": "anthropic/stable-tail/search-append/full/cache-auto",
+       "label": "search-append",
+       "metrics": {
+        "cost_per_conversation": 0.04051821590909092,
+        "resolved_rate": 0.9848484848484849,
+        "first_word_p50_ms": 432.9849999998696,
+        "first_word_p95_ms": 477.2260000000242,
+        "cache_read_share": 0.8475749012928698,
+        "cache_write_share": 0.15242509870713014,
+        "wrong_tool_calls": 0.045454545454545456,
+        "repeat_asks": 0,
+        "model_calls": 13.636363636363637,
+        "input_tokens": 42273.818181818184,
+        "transcript_tokens": 1510.7575757575758,
+        "handoff_rate": 0.13636363636363635
+       },
+       "failures": {
+        "change charged N, expected N": 1,
+        "policy breach: unquoted_change": 1
+       }
+      },
+      {
+       "config": "anthropic/stable-tail/search-dispatch/full/cache-auto",
+       "label": "search-dispatch",
+       "metrics": {
+        "cost_per_conversation": 0.02805288181818183,
+        "resolved_rate": 1,
+        "first_word_p50_ms": 431.3925000000163,
+        "first_word_p95_ms": 477.1372499999721,
+        "cache_read_share": 0.934457444869692,
+        "cache_write_share": 0.065542555130308,
+        "wrong_tool_calls": 0.015151515151515152,
+        "repeat_asks": 0,
+        "model_calls": 13.621212121212121,
+        "input_tokens": 41568.181818181816,
+        "transcript_tokens": 2621.969696969697,
+        "handoff_rate": 0.13636363636363635
+       },
+       "failures": {}
+      }
+     ],
+     "variants": [
+      {
+       "config": "anthropic/stable-tail/search-append/full/cache-auto",
+       "label": "search-append",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.05019920454545455,
+         "variant": 0.04051821590909092,
+         "gain": 0.1928514350779733,
+         "ci": [
+          0.14223254173746724,
+          0.24581878634737286
+         ]
+        },
+        {
+         "metric": "wrong_tool_calls",
+         "base": 0.3484848484848485,
+         "variant": 0.045454545454545456,
+         "gain": 0.8695652173913043,
+         "ci": [
+          0.6955685618729098,
+          1
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 618.1149999999907,
+         "variant": 477.2260000000242,
+         "gain": 0.22793331338014544,
+         "ci": [
+          0.2235513927982044,
+          0.2340098872261008
+         ]
+        },
+        {
+         "metric": "model_calls",
+         "base": 10.151515151515152,
+         "variant": 13.636363636363637,
+         "gain": -0.3432835820895522,
+         "ci": [
+          -0.37479548344962693,
+          -0.31548258735525536
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 0.9848484848484849,
+         "variant": 0.9848484848484849,
+         "gain": 0,
+         "ci": [
+          -0.045454545454545414,
+          0.047619047619047575
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "publish",
+       "reasons": [
+        "cost per conversation improves 19.3% (95% CI 14.2% to 24.6%): real, below the hand-off bar"
+       ],
+       "assumptions": [
+        "wrong-tool calls per conversation moved (0.348 → 0.045), and it is driven by a simulator assumption"
+       ]
+      },
+      {
+       "config": "anthropic/stable-tail/search-dispatch/full/cache-auto",
+       "label": "search-dispatch",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.05019920454545455,
+         "variant": 0.02805288181818183,
+         "gain": 0.44116879794817443,
+         "ci": [
+          0.42297125473094227,
+          0.4597152043379765
+         ]
+        },
+        {
+         "metric": "wrong_tool_calls",
+         "base": 0.3484848484848485,
+         "variant": 0.015151515151515152,
+         "gain": 0.9565217391304348,
+         "ci": [
+          0.8333333333333334,
+          1
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 618.1149999999907,
+         "variant": 477.1372499999721,
+         "gain": 0.2280768950761925,
+         "ci": [
+          0.22293700776277536,
+          0.23537903819934552
+         ]
+        },
+        {
+         "metric": "model_calls",
+         "base": 10.151515151515152,
+         "variant": 13.621212121212121,
+         "gain": -0.34179104477611927,
+         "ci": [
+          -0.37392832162250794,
+          -0.3121468926553673
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 0.9848484848484849,
+         "variant": 1,
+         "gain": 0.015384615384615372,
+         "ci": [
+          0,
+          0.047619047619047575
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "hand-off",
+       "reasons": [
+        "cost per conversation improves 44.1% (95% CI 42.3% to 46.0%) with guardrails held"
+       ],
+       "assumptions": [
+        "wrong-tool calls per conversation moved (0.348 → 0.015), and it is driven by a simulator assumption",
+        "resolved without breach moved (0.985 → 1.000), and it is driven by a simulator assumption"
+       ]
+      }
+     ],
+     "conversations": 66
+    },
+    {
+     "provider": "openai",
+     "chatterScale": 1,
+     "baseline": {
+      "config": "openai/stable-tail/all/full/cache-auto",
+      "label": "all",
+      "metrics": {
+       "cost_per_conversation": 0.02230039393939394,
+       "resolved_rate": 0.9848484848484849,
+       "first_word_p50_ms": 596.5100000000093,
+       "first_word_p95_ms": 624.2479999999981,
+       "cache_read_share": 0.9869602963205244,
+       "cache_write_share": 0,
+       "wrong_tool_calls": 0.3484848484848485,
+       "repeat_asks": 0,
+       "model_calls": 10.151515151515152,
+       "input_tokens": 139341.33333333334,
+       "transcript_tokens": 931.7727272727273,
+       "handoff_rate": 0.13636363636363635
+      },
+      "failures": {
+       "change charged N, expected N": 1,
+       "policy breach: unquoted_change": 1
+      }
+     },
+     "arms": [
+      {
+       "config": "openai/stable-tail/search-append/full/cache-auto",
+       "label": "search-append",
+       "metrics": {
+        "cost_per_conversation": 0.017044848484848482,
+        "resolved_rate": 0.9848484848484849,
+        "first_word_p50_ms": 438.99999999998545,
+        "first_word_p95_ms": 484.1335000000661,
+        "cache_read_share": 0.8312903753021428,
+        "cache_write_share": 0,
+        "wrong_tool_calls": 0.045454545454545456,
+        "repeat_asks": 0,
+        "model_calls": 13.636363636363637,
+        "input_tokens": 42273.818181818184,
+        "transcript_tokens": 1510.7575757575758,
+        "handoff_rate": 0.13636363636363635
+       },
+       "failures": {
+        "change charged N, expected N": 1,
+        "policy breach: unquoted_change": 1
+       }
+      },
+      {
+       "config": "openai/stable-tail/search-dispatch/full/cache-auto",
+       "label": "search-dispatch",
+       "metrics": {
+        "cost_per_conversation": 0.013270560606060609,
+        "resolved_rate": 1,
+        "first_word_p50_ms": 437.625,
+        "first_word_p95_ms": 482.4684999999707,
+        "cache_read_share": 0.915478767997084,
+        "cache_write_share": 0,
+        "wrong_tool_calls": 0.015151515151515152,
+        "repeat_asks": 0,
+        "model_calls": 13.621212121212121,
+        "input_tokens": 41568.181818181816,
+        "transcript_tokens": 2621.969696969697,
+        "handoff_rate": 0.13636363636363635
+       },
+       "failures": {}
+      }
+     ],
+     "variants": [
+      {
+       "config": "openai/stable-tail/search-append/full/cache-auto",
+       "label": "search-append",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.02230039393939394,
+         "variant": 0.017044848484848482,
+         "gain": 0.23567052083602286,
+         "ci": [
+          0.20274601006881623,
+          0.2708297888685623
+         ]
+        },
+        {
+         "metric": "wrong_tool_calls",
+         "base": 0.3484848484848485,
+         "variant": 0.045454545454545456,
+         "gain": 0.8695652173913043,
+         "ci": [
+          0.7,
+          1
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 624.2479999999981,
+         "variant": 484.1335000000661,
+         "gain": 0.22445326216492878,
+         "ci": [
+          0.21769596989838774,
+          0.23239533433923615
+         ]
+        },
+        {
+         "metric": "model_calls",
+         "base": 10.151515151515152,
+         "variant": 13.636363636363637,
+         "gain": -0.3432835820895522,
+         "ci": [
+          -0.3753801312624841,
+          -0.315048330901234
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 0.9848484848484849,
+         "variant": 0.9848484848484849,
+         "gain": 0,
+         "ci": [
+          -0.045454545454545414,
+          0.047619047619047575
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "publish",
+       "reasons": [
+        "cost per conversation improves 23.6% (95% CI 20.3% to 27.1%): real, below the hand-off bar"
+       ],
+       "assumptions": [
+        "wrong-tool calls per conversation moved (0.348 → 0.045), and it is driven by a simulator assumption"
+       ]
+      },
+      {
+       "config": "openai/stable-tail/search-dispatch/full/cache-auto",
+       "label": "search-dispatch",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.02230039393939394,
+         "variant": 0.013270560606060609,
+         "gain": 0.40491810852641535,
+         "ci": [
+          0.3878595999847916,
+          0.42118956462540047
+         ]
+        },
+        {
+         "metric": "wrong_tool_calls",
+         "base": 0.3484848484848485,
+         "variant": 0.015151515151515152,
+         "gain": 0.9565217391304348,
+         "ci": [
+          0.84,
+          1
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 624.2479999999981,
+         "variant": 482.4684999999707,
+         "gain": 0.22712047135117433,
+         "ci": [
+          0.21994994605552187,
+          0.23496770617024412
+         ]
+        },
+        {
+         "metric": "model_calls",
+         "base": 10.151515151515152,
+         "variant": 13.621212121212121,
+         "gain": -0.34179104477611927,
+         "ci": [
+          -0.37355465059022386,
+          -0.31460476062186027
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 0.9848484848484849,
+         "variant": 1,
+         "gain": 0.015384615384615372,
+         "ci": [
+          0,
+          0.047619047619047575
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "hand-off",
+       "reasons": [
+        "cost per conversation improves 40.5% (95% CI 38.8% to 42.1%) with guardrails held"
+       ],
+       "assumptions": [
+        "wrong-tool calls per conversation moved (0.348 → 0.015), and it is driven by a simulator assumption",
+        "resolved without breach moved (0.985 → 1.000), and it is driven by a simulator assumption"
+       ]
+      }
+     ],
+     "conversations": 66
+    }
+   ],
+   "verdict": "hand-off",
+   "headline": "search-dispatch: cost per conversation improves 44.1% (95% CI 42.3% to 46.0%) with guardrails held (anthropic)."
+  },
+  {
+   "id": "long-call-context",
+   "title": "What to keep from a long call",
+   "question": "On long calls, which context strategy keeps the agent right and the bill down?",
+   "scenarioSet": "scenarios/dev",
+   "primary": "cost_per_conversation",
+   "also": [
+    "repeat_asks",
+    "first_word_p95_ms",
+    "transcript_tokens"
+   ],
+   "runs": [
+    {
+     "provider": "anthropic",
+     "chatterScale": 1,
+     "baseline": {
+      "config": "anthropic/stable-tail/search-dispatch/full/cache-auto",
+      "label": "full",
+      "metrics": {
+       "cost_per_conversation": 0.052984783333333334,
+       "resolved_rate": 1,
+       "first_word_p50_ms": 452.9200000000419,
+       "first_word_p95_ms": 482.07249999999476,
+       "cache_read_share": 0.943791880632474,
+       "cache_write_share": 0.056208119367526024,
+       "wrong_tool_calls": 0,
+       "repeat_asks": 0,
+       "model_calls": 22.72222222222222,
+       "input_tokens": 85867.38888888889,
+       "transcript_tokens": 4626.777777777777,
+       "handoff_rate": 0
+      },
+      "failures": {}
+     },
+     "arms": [
+      {
+       "config": "anthropic/stable-tail/search-dispatch/window/cache-auto",
+       "label": "window",
+       "metrics": {
+        "cost_per_conversation": 0.079669825,
+        "resolved_rate": 1,
+        "first_word_p50_ms": 457.8249999999971,
+        "first_word_p95_ms": 724.6080000000038,
+        "cache_read_share": 0.859167491551599,
+        "cache_write_share": 0.14083250844840103,
+        "wrong_tool_calls": 0,
+        "repeat_asks": 0.3888888888888889,
+        "model_calls": 24.88888888888889,
+        "input_tokens": 86768.55555555556,
+        "transcript_tokens": 5122.055555555556,
+        "handoff_rate": 0
+       },
+       "failures": {}
+      },
+      {
+       "config": "anthropic/stable-tail/search-dispatch/summary/cache-auto",
+       "label": "summary",
+       "metrics": {
+        "cost_per_conversation": 0.08782851666666665,
+        "resolved_rate": 1,
+        "first_word_p50_ms": 444.57500000001164,
+        "first_word_p95_ms": 1339.0715000000068,
+        "cache_read_share": 0.8716151259162477,
+        "cache_write_share": 0.12563852024093702,
+        "wrong_tool_calls": 0.05555555555555555,
+        "repeat_asks": 1.3333333333333333,
+        "model_calls": 32.666666666666664,
+        "input_tokens": 98817.88888888889,
+        "transcript_tokens": 6398.388888888889,
+        "handoff_rate": 0
+       },
+       "failures": {}
+      },
+      {
+       "config": "anthropic/stable-tail/search-dispatch/casefile/cache-auto",
+       "label": "casefile",
+       "metrics": {
+        "cost_per_conversation": 0.052656291666666674,
+        "resolved_rate": 1,
+        "first_word_p50_ms": 438.5799999999581,
+        "first_word_p95_ms": 463.9149999999936,
+        "cache_read_share": 0.9128668279140703,
+        "cache_write_share": 0.08713317208592977,
+        "wrong_tool_calls": 0,
+        "repeat_asks": 0.5,
+        "model_calls": 23.27777777777778,
+        "input_tokens": 69940.83333333333,
+        "transcript_tokens": 4680,
+        "handoff_rate": 0
+       },
+       "failures": {}
+      }
+     ],
+     "variants": [
+      {
+       "config": "anthropic/stable-tail/search-dispatch/window/cache-auto",
+       "label": "window",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.052984783333333334,
+         "variant": 0.079669825,
+         "gain": -0.5036359495666523,
+         "ci": [
+          -0.7370571196012231,
+          -0.26305448722488634
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0.3888888888888889,
+         "gain": -1,
+         "ci": [
+          -1,
+          -1
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 482.07249999999476,
+         "variant": 724.6080000000038,
+         "gain": -0.5031100093865791,
+         "ci": [
+          -0.5776883342481494,
+          -0.4512638836305526
+         ]
+        },
+        {
+         "metric": "transcript_tokens",
+         "base": 4626.777777777777,
+         "variant": 5122.055555555556,
+         "gain": -0.10704594029922444,
+         "ci": [
+          -0.1673544097896197,
+          -0.04628098675826224
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 1,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "kill",
+       "reasons": [
+        "cost per conversation gets worse by 50.4% (95% CI -73.7% to -26.3%); the bar is 10.0%",
+        "repeat questions rise by 0.39 per conversation (limit 0.1)"
+       ],
+       "assumptions": [
+        "repeat questions per conversation moved (0.000 → 0.389), and it is driven by a simulator assumption"
+       ]
+      },
+      {
+       "config": "anthropic/stable-tail/search-dispatch/summary/cache-auto",
+       "label": "summary",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.052984783333333334,
+         "variant": 0.08782851666666665,
+         "gain": -0.6576177374195795,
+         "ci": [
+          -0.7498510412822896,
+          -0.5807776544577737
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 1.3333333333333333,
+         "gain": -1,
+         "ci": [
+          -1,
+          -1
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 482.07249999999476,
+         "variant": 1339.0715000000068,
+         "gain": -1.7777388255916307,
+         "ci": [
+          -1.942992301319176,
+          -1.5992296394088619
+         ]
+        },
+        {
+         "metric": "transcript_tokens",
+         "base": 4626.777777777777,
+         "variant": 6398.388888888889,
+         "gain": -0.3829038687831705,
+         "ci": [
+          -0.4424479458569692,
+          -0.32105698562308166
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 1,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "kill",
+       "reasons": [
+        "cost per conversation gets worse by 65.8% (95% CI -75.0% to -58.1%); the bar is 10.0%",
+        "repeat questions rise by 1.33 per conversation (limit 0.1)"
+       ],
+       "assumptions": [
+        "repeat questions per conversation moved (0.000 → 1.333), and it is driven by a simulator assumption"
+       ]
+      },
+      {
+       "config": "anthropic/stable-tail/search-dispatch/casefile/cache-auto",
+       "label": "casefile",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.052984783333333334,
+         "variant": 0.052656291666666674,
+         "gain": 0.006199735961928558,
+         "ci": [
+          -0.020994665213430196,
+          0.035233789160511245
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0.5,
+         "gain": -1,
+         "ci": [
+          -1,
+          -1
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 482.07249999999476,
+         "variant": 463.9149999999936,
+         "gain": 0.03766549637243643,
+         "ci": [
+          -0.14726158031846787,
+          0.04715446300917642
+         ]
+        },
+        {
+         "metric": "transcript_tokens",
+         "base": 4626.777777777777,
+         "variant": 4680,
+         "gain": -0.011503085900915052,
+         "ci": [
+          -0.02077797945267725,
+          -0.004003829535088563
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 1,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "kill",
+       "reasons": [
+        "cost per conversation improves 0.6% (95% CI -2.1% to 3.5%); the bar is 10.0%",
+        "repeat questions rise by 0.50 per conversation (limit 0.1)"
+       ],
+       "assumptions": [
+        "repeat questions per conversation moved (0.000 → 0.500), and it is driven by a simulator assumption"
+       ]
+      }
+     ],
+     "conversations": 18
+    },
+    {
+     "provider": "anthropic",
+     "chatterScale": 4,
+     "baseline": {
+      "config": "anthropic/stable-tail/search-dispatch/full/cache-auto",
+      "label": "full",
+      "metrics": {
+       "cost_per_conversation": 0.061968166666666664,
+       "resolved_rate": 1,
+       "first_word_p50_ms": 478.26500000001397,
+       "first_word_p95_ms": 537.4810000000056,
+       "cache_read_share": 0.9380223236179519,
+       "cache_write_share": 0.06197767638204814,
+       "wrong_tool_calls": 0.05555555555555555,
+       "repeat_asks": 0,
+       "model_calls": 22.88888888888889,
+       "input_tokens": 99914.11111111111,
+       "transcript_tokens": 5991.888888888889,
+       "handoff_rate": 0
+      },
+      "failures": {}
+     },
+     "arms": [
+      {
+       "config": "anthropic/stable-tail/search-dispatch/window/cache-auto",
+       "label": "window",
+       "metrics": {
+        "cost_per_conversation": 0.09917940833333333,
+        "resolved_rate": 1,
+        "first_word_p50_ms": 492.117499999993,
+        "first_word_p95_ms": 866.6432500000141,
+        "cache_read_share": 0.8400779493167272,
+        "cache_write_share": 0.15992205068327278,
+        "wrong_tool_calls": 0,
+        "repeat_asks": 0.5,
+        "model_calls": 25.333333333333332,
+        "input_tokens": 102773.33333333333,
+        "transcript_tokens": 6666.944444444444,
+        "handoff_rate": 0
+       },
+       "failures": {}
+      },
+      {
+       "config": "anthropic/stable-tail/search-dispatch/summary/cache-auto",
+       "label": "summary",
+       "metrics": {
+        "cost_per_conversation": 0.12128130833333334,
+        "resolved_rate": 0.8888888888888888,
+        "first_word_p50_ms": 469.54000000000815,
+        "first_word_p95_ms": 1486.9450000000477,
+        "cache_read_share": 0.8130862610999097,
+        "cache_write_share": 0.17786886658444057,
+        "wrong_tool_calls": 0.1111111111111111,
+        "repeat_asks": 1.7222222222222223,
+        "model_calls": 36.72222222222222,
+        "input_tokens": 112832.5,
+        "transcript_tokens": 8212.611111111111,
+        "handoff_rate": 0.1111111111111111
+       },
+       "failures": {
+        "customer gave up and asked for a person": 2,
+        "email not updated": 1,
+        "bags are N, expected N": 1,
+        "baggage charged N, expected N": 1,
+        "seat not changed": 1
+       }
+      },
+      {
+       "config": "anthropic/stable-tail/search-dispatch/casefile/cache-auto",
+       "label": "casefile",
+       "metrics": {
+        "cost_per_conversation": 0.06732491666666668,
+        "resolved_rate": 1,
+        "first_word_p50_ms": 450.6200000000099,
+        "first_word_p95_ms": 636.109999999986,
+        "cache_read_share": 0.8716288852876524,
+        "cache_write_share": 0.12837111471234758,
+        "wrong_tool_calls": 0,
+        "repeat_asks": 0.6111111111111112,
+        "model_calls": 23.666666666666668,
+        "input_tokens": 76174.11111111111,
+        "transcript_tokens": 6053.388888888889,
+        "handoff_rate": 0
+       },
+       "failures": {}
+      }
+     ],
+     "variants": [
+      {
+       "config": "anthropic/stable-tail/search-dispatch/window/cache-auto",
+       "label": "window",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.061968166666666664,
+         "variant": 0.09917940833333333,
+         "gain": -0.6004896331180795,
+         "ci": [
+          -0.8416571653462561,
+          -0.3454588593578488
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0.5,
+         "gain": -1,
+         "ci": [
+          -1,
+          -1
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 537.4810000000056,
+         "variant": 866.6432500000141,
+         "gain": -0.6124165319332313,
+         "ci": [
+          -0.6402094898535733,
+          -0.4850011680875267
+         ]
+        },
+        {
+         "metric": "transcript_tokens",
+         "base": 5991.888888888889,
+         "variant": 6666.944444444444,
+         "gain": -0.11266156099912847,
+         "ci": [
+          -0.17077508171251282,
+          -0.05855322735158597
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 1,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "kill",
+       "reasons": [
+        "cost per conversation gets worse by 60.0% (95% CI -84.2% to -34.5%); the bar is 10.0%",
+        "repeat questions rise by 0.50 per conversation (limit 0.1)"
+       ],
+       "assumptions": [
+        "repeat questions per conversation moved (0.000 → 0.500), and it is driven by a simulator assumption"
+       ]
+      },
+      {
+       "config": "anthropic/stable-tail/search-dispatch/summary/cache-auto",
+       "label": "summary",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.061968166666666664,
+         "variant": 0.12128130833333334,
+         "gain": -0.9571550177644975,
+         "ci": [
+          -1.1695374599012682,
+          -0.7457158319613879
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 1.7222222222222223,
+         "gain": -1,
+         "ci": [
+          -1,
+          -1
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 537.4810000000056,
+         "variant": 1486.9450000000477,
+         "gain": -1.7665070951345858,
+         "ci": [
+          -1.9058926254776152,
+          -1.6784512281486017
+         ]
+        },
+        {
+         "metric": "transcript_tokens",
+         "base": 5991.888888888889,
+         "variant": 8212.611111111111,
+         "gain": -0.3706213955903352,
+         "ci": [
+          -0.4877139579581715,
+          -0.24858503703459442
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 0.8888888888888888,
+         "gain": -0.11111111111111116,
+         "ci": [
+          -0.2777777777777778,
+          0
+         ]
+        }
+       ],
+       "verdict": "kill",
+       "reasons": [
+        "cost per conversation gets worse by 95.7% (95% CI -117.0% to -74.6%); the bar is 10.0%",
+        "resolved rate drops 11.1 points (limit 2)",
+        "repeat questions rise by 1.72 per conversation (limit 0.1)"
+       ],
+       "assumptions": [
+        "resolved without breach moved (1.000 → 0.889), and it is driven by a simulator assumption",
+        "repeat questions per conversation moved (0.000 → 1.722), and it is driven by a simulator assumption"
+       ]
+      },
+      {
+       "config": "anthropic/stable-tail/search-dispatch/casefile/cache-auto",
+       "label": "casefile",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.061968166666666664,
+         "variant": 0.06732491666666668,
+         "gain": -0.08644357721303166,
+         "ci": [
+          -0.13516908483488818,
+          -0.03909807897327637
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0.6111111111111112,
+         "gain": -1,
+         "ci": [
+          -1,
+          -1
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 537.4810000000056,
+         "variant": 636.109999999986,
+         "gain": -0.18350230054639968,
+         "ci": [
+          -0.2700676682541664,
+          -0.07177058984573859
+         ]
+        },
+        {
+         "metric": "transcript_tokens",
+         "base": 5991.888888888889,
+         "variant": 6053.388888888889,
+         "gain": -0.01026387523874868,
+         "ci": [
+          -0.0431150064792071,
+          0.0221938820931125
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 1,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "kill",
+       "reasons": [
+        "cost per conversation gets worse by 8.6% (95% CI -13.5% to -3.9%); the bar is 10.0%",
+        "repeat questions rise by 0.61 per conversation (limit 0.1)"
+       ],
+       "assumptions": [
+        "repeat questions per conversation moved (0.000 → 0.611), and it is driven by a simulator assumption"
+       ]
+      }
+     ],
+     "conversations": 18
+    }
+   ],
+   "verdict": "kill",
+   "headline": "No variant clears the bar: cost per conversation improves 0.6% (95% CI -2.1% to 3.5%); the bar is 10.0% (anthropic)."
+  },
+  {
+   "id": "combined",
+   "title": "The template agent versus the lab's recommendation",
+   "question": "Taken together, what does the recommended setup change for a contact centre's traffic?",
+   "scenarioSet": "scenarios/dev",
+   "primary": "cost_per_conversation",
+   "also": [
+    "first_word_p95_ms",
+    "resolved_rate",
+    "wrong_tool_calls"
+   ],
+   "runs": [
+    {
+     "provider": "anthropic",
+     "chatterScale": 1,
+     "baseline": {
+      "config": "anthropic/dynamic-first/all/full/cache-auto",
+      "label": "dynamic-first + all + full",
+      "metrics": {
+       "cost_per_conversation": 0.058754170454545465,
+       "resolved_rate": 1,
+       "first_word_p50_ms": 604.2425000000076,
+       "first_word_p95_ms": 761.2565000000293,
+       "cache_read_share": 0.9751978686149819,
+       "cache_write_share": 0.024802131385018033,
+       "wrong_tool_calls": 0.48484848484848486,
+       "repeat_asks": 0,
+       "model_calls": 10.318181818181818,
+       "input_tokens": 141117.51515151514,
+       "transcript_tokens": 849.469696969697,
+       "handoff_rate": 0.13636363636363635
+      },
+      "failures": {}
+     },
+     "arms": [
+      {
+       "config": "anthropic/stable-tail/search-dispatch/full/cache-auto",
+       "label": "stable-tail + search-dispatch + full",
+       "metrics": {
+        "cost_per_conversation": 0.02805288181818183,
+        "resolved_rate": 1,
+        "first_word_p50_ms": 431.3925000000163,
+        "first_word_p95_ms": 477.1372499999721,
+        "cache_read_share": 0.934457444869692,
+        "cache_write_share": 0.065542555130308,
+        "wrong_tool_calls": 0.015151515151515152,
+        "repeat_asks": 0,
+        "model_calls": 13.621212121212121,
+        "input_tokens": 41568.181818181816,
+        "transcript_tokens": 2621.969696969697,
+        "handoff_rate": 0.13636363636363635
+       },
+       "failures": {}
+      }
+     ],
+     "variants": [
+      {
+       "config": "anthropic/stable-tail/search-dispatch/full/cache-auto",
+       "label": "stable-tail + search-dispatch + full",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.058754170454545465,
+         "variant": 0.02805288181818183,
+         "gain": 0.5225380326000069,
+         "ci": [
+          0.5035800773925485,
+          0.5413174608225831
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 761.2565000000293,
+         "variant": 477.1372499999721,
+         "gain": 0.37322407099321486,
+         "ci": [
+          0.36272960167145707,
+          0.4045241972002551
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 1,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        },
+        {
+         "metric": "wrong_tool_calls",
+         "base": 0.48484848484848486,
+         "variant": 0.015151515151515152,
+         "gain": 0.96875,
+         "ci": [
+          0.896551724137931,
+          1
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "hand-off",
+       "reasons": [
+        "cost per conversation improves 52.3% (95% CI 50.4% to 54.1%) with guardrails held"
+       ],
+       "assumptions": [
+        "wrong-tool calls per conversation moved (0.485 → 0.015), and it is driven by a simulator assumption"
+       ]
+      }
+     ],
+     "conversations": 66
+    },
+    {
+     "provider": "openai",
+     "chatterScale": 1,
+     "baseline": {
+      "config": "openai/dynamic-first/all/full/cache-auto",
+      "label": "dynamic-first + all + full",
+      "metrics": {
+       "cost_per_conversation": 0.02508407575757576,
+       "resolved_rate": 1,
+       "first_word_p50_ms": 610.5150000000067,
+       "first_word_p95_ms": 765.8165000000037,
+       "cache_read_share": 0.9713494749057201,
+       "cache_write_share": 0,
+       "wrong_tool_calls": 0.48484848484848486,
+       "repeat_asks": 0,
+       "model_calls": 10.318181818181818,
+       "input_tokens": 141117.51515151514,
+       "transcript_tokens": 849.469696969697,
+       "handoff_rate": 0.13636363636363635
+      },
+      "failures": {}
+     },
+     "arms": [
+      {
+       "config": "openai/stable-tail/search-dispatch/full/cache-auto",
+       "label": "stable-tail + search-dispatch + full",
+       "metrics": {
+        "cost_per_conversation": 0.013270560606060609,
+        "resolved_rate": 1,
+        "first_word_p50_ms": 437.625,
+        "first_word_p95_ms": 482.4684999999707,
+        "cache_read_share": 0.915478767997084,
+        "cache_write_share": 0,
+        "wrong_tool_calls": 0.015151515151515152,
+        "repeat_asks": 0,
+        "model_calls": 13.621212121212121,
+        "input_tokens": 41568.181818181816,
+        "transcript_tokens": 2621.969696969697,
+        "handoff_rate": 0.13636363636363635
+       },
+       "failures": {}
+      }
+     ],
+     "variants": [
+      {
+       "config": "openai/stable-tail/search-dispatch/full/cache-auto",
+       "label": "stable-tail + search-dispatch + full",
+       "comparisons": [
+        {
+         "metric": "cost_per_conversation",
+         "base": 0.02508407575757576,
+         "variant": 0.013270560606060609,
+         "gain": 0.47095676419121385,
+         "ci": [
+          0.45423160686733594,
+          0.4886820103599592
+         ]
+        },
+        {
+         "metric": "first_word_p95_ms",
+         "base": 765.8165000000037,
+         "variant": 482.4684999999707,
+         "gain": 0.3699946397081176,
+         "ci": [
+          0.35726502473426475,
+          0.40027304361705107
+         ]
+        },
+        {
+         "metric": "resolved_rate",
+         "base": 1,
+         "variant": 1,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        },
+        {
+         "metric": "wrong_tool_calls",
+         "base": 0.48484848484848486,
+         "variant": 0.015151515151515152,
+         "gain": 0.96875,
+         "ci": [
+          0.894736842105263,
+          1
+         ]
+        },
+        {
+         "metric": "repeat_asks",
+         "base": 0,
+         "variant": 0,
+         "gain": 0,
+         "ci": [
+          0,
+          0
+         ]
+        }
+       ],
+       "verdict": "hand-off",
+       "reasons": [
+        "cost per conversation improves 47.1% (95% CI 45.4% to 48.9%) with guardrails held"
+       ],
+       "assumptions": [
+        "wrong-tool calls per conversation moved (0.485 → 0.015), and it is driven by a simulator assumption"
+       ]
+      }
+     ],
+     "conversations": 66
+    }
+   ],
+   "verdict": "hand-off",
+   "headline": "stable-tail + search-dispatch + full: cost per conversation improves 52.3% (95% CI 50.4% to 54.1%) with guardrails held (anthropic)."
+  }
+ ]
+}

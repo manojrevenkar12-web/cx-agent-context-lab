@@ -1,0 +1,99 @@
+# Development scenarios: one journey each. The agent may be tuned against these.
+- id: change-simple
+  channel: voice
+  customer: { first_name: Lena, last_name: Hoffmann }
+  booking: { ref: QX7M2P, fare: classic, tier: basic, route: BER-LHR, date: "2026-11-14", slot: morning, paid: 189 }
+  goals:
+    - { intent: change_flight, date: "2026-11-16", prefer: evening }
+- id: change-gold-upfront
+  channel: voice
+  reveal: upfront
+  customer: { first_name: Amara, last_name: Okafor }
+  booking: { ref: GL4D8K, fare: light, tier: gold, route: MUC-AMS, date: "2026-11-20", slot: midday, paid: 129 }
+  goals:
+    - { intent: change_flight, date: "2026-11-21", prefer: morning }
+- id: change-declined
+  channel: chat
+  customer: { first_name: Tomas, last_name: Novak }
+  booking: { ref: TN5R2C, fare: light, tier: basic, route: FRA-FCO, date: "2026-11-25", slot: evening, paid: 99 }
+  goals:
+    - { intent: change_flight, date: "2026-11-27", prefer: midday, accept: false }
+- id: change-too-late
+  channel: voice
+  call_at: "2026-11-12T16:30"
+  customer: { first_name: Priya, last_name: Raman }
+  booking: { ref: PR3T9W, fare: flex, tier: silver, route: HAM-VIE, date: "2026-11-12", slot: evening, paid: 240 }
+  goals:
+    - { intent: change_flight, date: "2026-11-13", prefer: morning }
+- id: change-no-preference
+  channel: chat
+  customer: { first_name: Jonas, last_name: Berg }
+  booking: { ref: JB8L2X, fare: flex, tier: basic, route: DUS-ZRH, date: "2026-11-18", slot: morning, paid: 230 }
+  goals:
+    - { intent: change_flight, date: "2026-11-19" }
+- id: bags-light
+  channel: voice
+  customer: { first_name: Sofia, last_name: Marino }
+  booking: { ref: SM2B7Q, fare: light, tier: basic, route: BER-MAD, date: "2026-11-22", slot: midday, paid: 109 }
+  goals:
+    - { intent: add_bag, pieces: 2 }
+- id: bags-included
+  channel: chat
+  customer: { first_name: Ole, last_name: Jensen }
+  booking: { ref: OJ6K4M, fare: classic, tier: silver, route: FRA-CPH, date: "2026-11-28", slot: morning, paid: 175 }
+  goals:
+    - { intent: add_bag, pieces: 1 }
+- id: bags-over-limit
+  channel: voice
+  customer: { first_name: Fatima, last_name: Haddad }
+  booking: { ref: FH9P3D, fare: classic, tier: basic, route: MUC-LIS, date: "2026-12-02", slot: evening, bags: 2, paid: 210 }
+  goals:
+    - { intent: add_bag, pieces: 2 }
+- id: seat-aisle
+  channel: chat
+  customer: { first_name: Mateo, last_name: Garcia }
+  booking: { ref: MG7S1V, fare: light, tier: basic, route: BER-CDG, date: "2026-11-19", slot: morning, seat: 22B, paid: 89 }
+  goals:
+    - { intent: seat, prefer: aisle }
+- id: cancel-flex
+  channel: voice
+  customer: { first_name: Hannah, last_name: Weiss }
+  booking: { ref: HW4C8N, fare: flex, tier: gold, route: FRA-LHR, date: "2026-12-05", slot: midday, paid: 320 }
+  goals:
+    - { intent: cancel }
+- id: cancel-light-kept
+  channel: voice
+  customer: { first_name: Lukas, last_name: Brandt }
+  booking: { ref: LB2Z6R, fare: light, tier: basic, route: BER-FCO, date: "2026-11-30", slot: evening, paid: 119 }
+  goals:
+    - { intent: cancel, accept: false }
+- id: refund-status
+  channel: chat
+  customer: { first_name: Yuki, last_name: Tanaka }
+  booking: { ref: YT3R7F, fare: classic, tier: basic, route: MUC-CDG, date: "2026-12-08", slot: morning, paid: 160 }
+  goals:
+    - { intent: refund_status }
+- id: flight-status
+  channel: chat
+  customer: { first_name: Ana, last_name: Silva }
+  booking: { ref: AS5F2G, fare: light, tier: basic, route: MUC-LIS, date: "2026-11-11", slot: midday, paid: 95 }
+  goals:
+    - { intent: flight_status }
+- id: contact-email
+  channel: chat
+  customer: { first_name: Noah, last_name: Fischer }
+  booking: { ref: NF8E4H, fare: classic, tier: silver, route: HAM-VIE, date: "2026-11-26", slot: midday, paid: 150 }
+  goals:
+    - { intent: update_contact, email: noah.fischer@example.org }
+- id: claim-lost-bag
+  channel: voice
+  customer: { first_name: Grace, last_name: Owusu }
+  booking: { ref: GO6L3B, fare: classic, tier: basic, route: BER-LHR, date: "2026-11-11", slot: morning, paid: 170 }
+  goals:
+    - { intent: claim, text: "My suitcase didn't arrive in London and I've lost my luggage for two days now." }
+- id: assistance
+  channel: voice
+  customer: { first_name: Walter, last_name: Klein }
+  booking: { ref: WK7A9S, fare: flex, tier: gold, route: FRA-FCO, date: "2026-12-01", slot: morning, paid: 280 }
+  goals:
+    - { intent: assistance }

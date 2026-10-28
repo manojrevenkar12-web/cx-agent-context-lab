@@ -1,0 +1,6 @@
+node_modules/
+apps/console/dist/
+apps/console/test-results/
+apps/console/playwright-report/
+*.log
+.env

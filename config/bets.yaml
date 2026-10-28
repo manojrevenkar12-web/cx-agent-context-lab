@@ -1,0 +1,67 @@
+# The lab's bets. Each compares a baseline with variants on the same scenarios and seeds (paired),
+# and ends in a decision memo. Decision thresholds are below; the memo shows which rule fired.
+decision:
+  primary_min_gain: 0.10        # below this relative gain on the primary metric: kill
+  primary_handoff_gain: 0.25    # at or above (with the CI clear of zero and guardrails held): hand off to product
+  success_max_drop: 0.02        # guardrail: resolved rate may not drop more than this (absolute)
+  repeat_asks_max_rise: 0.10    # guardrail: repeat questions per conversation may not rise more than this
+  bootstrap_samples: 2000
+  ci: 0.95
+
+bets:
+  - id: cache-layout
+    title: Where the changing parts of the prompt go
+    question: How much of an agent's input bill and first-word latency is lost to a prompt layout that breaks the provider's cache?
+    scenarios: dev
+    providers: [anthropic, openai]
+    fixed: { tools: all, context: full, cache: auto }
+    baseline: { layout: dynamic-first }
+    variants:
+      - { layout: stable-first }
+      - { layout: stable-tail }
+    primary: cost_per_conversation
+    also: [first_word_p95_ms, cache_read_share]
+
+  - id: tool-loading
+    title: Loading 150 tool definitions versus searching for them
+    question: Does searching the tool catalogue beat loading every definition, and does the way found tools are added matter for the cache?
+    scenarios: dev
+    providers: [anthropic, openai]
+    fixed: { layout: stable-tail, context: full, cache: auto }
+    baseline: { tools: all }
+    variants:
+      - { tools: search-append }
+      - { tools: search-dispatch }
+    primary: cost_per_conversation
+    also: [wrong_tool_calls, first_word_p95_ms, model_calls]
+    assumption_metrics: [wrong_tool_calls, resolved_rate]   # driven by config/sim.yaml tool_selection
+
+  - id: long-call-context
+    title: What to keep from a long call
+    question: On long calls, which context strategy keeps the agent right and the bill down?
+    scenarios: dev
+    tags: [long]
+    chatter_scale: [1, 4]       # 4x the filler talk: calls several times longer
+    providers: [anthropic]
+    fixed: { layout: stable-tail, tools: search-dispatch, cache: auto }
+    baseline: { context: full }
+    variants:
+      - { context: window }
+      - { context: summary }
+      - { context: casefile }
+    primary: cost_per_conversation
+    also: [repeat_asks, first_word_p95_ms, transcript_tokens]
+    assumption_metrics: [resolved_rate, repeat_asks]         # driven by the simulated summariser's keeps
+
+  - id: combined
+    title: The template agent versus the lab's recommendation
+    question: Taken together, what does the recommended setup change for a contact centre's traffic?
+    scenarios: dev
+    providers: [anthropic, openai]
+    fixed: { cache: auto }
+    baseline: { layout: dynamic-first, tools: all, context: full }
+    variants:
+      - { layout: stable-tail, tools: search-dispatch, context: full }
+    primary: cost_per_conversation
+    also: [first_word_p95_ms, resolved_rate, wrong_tool_calls]
+    assumption_metrics: [wrong_tool_calls, resolved_rate]

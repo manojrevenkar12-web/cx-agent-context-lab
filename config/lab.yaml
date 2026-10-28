@@ -1,0 +1,10 @@
+# How the lab runs conversations. Customer behaviour here is part of the experiment design.
+seeds: 3                        # repeats per scenario; seeds change chatter and timing
+arrival_gap_seconds: 40         # a new conversation starts this often (shared provider cache)
+think_seconds:                  # customer time between agent reply and next message
+  voice: [2, 6]
+  chat: [12, 40]
+max_customer_turns: 40
+max_repeat_asks: 2              # more than this and the customer asks for a person
+chatter_probability: 0.6        # chance a reply carries filler talk while chatter is left
+wall_clock_start: "08:00"       # first conversation's local time on config/skyline.yaml today

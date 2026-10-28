@@ -1,0 +1,7 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": { "includes": ["packages/**", "apps/api/**", "apps/console/src/**", "apps/console/e2e/**", "!**/node_modules", "!**/dist"] },
+  "formatter": { "indentStyle": "space", "indentWidth": 2, "lineWidth": 160 },
+  "linter": { "rules": { "recommended": true, "style": { "noNonNullAssertion": "error" }, "suspicious": { "noExplicitAny": "error" } } },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } }
+}

@@ -1,0 +1,433 @@
+{
+ "set": "blind-1",
+ "scenarios_sha256": "949e8543f0c32b5ea1ca650222667bb40d507a1007a0ac366b8fe3aed8fdb06b",
+ "seeds": 3,
+ "configs": {
+  "anthropic/stable-tail/search-dispatch/full/cache-auto": {
+   "metrics": {
+    "cost_per_conversation": 0.019542935294117648,
+    "resolved_rate": 0.7647058823529411,
+    "first_word_p50_ms": 414.13000000000466,
+    "first_word_p95_ms": 448.54000000003725,
+    "cache_read_share": 0.9278427904527099,
+    "cache_write_share": 0.07215720954729009,
+    "wrong_tool_calls": 0,
+    "repeat_asks": 0.47058823529411764,
+    "model_calls": 10.627450980392156,
+    "input_tokens": 26916.99019607843,
+    "transcript_tokens": 1860.7254901960785,
+    "handoff_rate": 0.4117647058823529
+   },
+   "failed": [
+    {
+     "scenario": "light-change-next-weekend",
+     "seed": 0,
+     "failures": [
+      "flight is SK121 2026-11-20, expected SK122 2026-11-22",
+      "change charged 0, expected 70",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-change-to-christmas-declined",
+     "seed": 0,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-cancel-declined",
+     "seed": 0,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "aisle-seat-then-wheelchair",
+     "seed": 0,
+     "failures": [
+      "seat not changed"
+     ]
+    },
+    {
+     "scenario": "lost-bag-claim-and-email",
+     "seed": 0,
+     "failures": [
+      "email not updated"
+     ]
+    },
+    {
+     "scenario": "cancel-declined-then-change",
+     "seed": 0,
+     "failures": [
+      "cancelled a booking the customer kept",
+      "flight is SK151 2026-11-16, expected SK151 2026-11-23",
+      "change charged 0, expected 74",
+      "handed over without need"
+     ]
+    },
+    {
+     "scenario": "marathon-call-status-seat-bag",
+     "seed": 0,
+     "failures": [
+      "seat not changed",
+      "bags are 0, expected 1",
+      "baggage charged 0, expected 35",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "inside-window-then-bag",
+     "seed": 0,
+     "failures": [
+      "bags are 1, expected 2",
+      "baggage charged 0, expected 35"
+     ]
+    },
+    {
+     "scenario": "light-change-next-weekend",
+     "seed": 1,
+     "failures": [
+      "flight is SK121 2026-11-20, expected SK122 2026-11-22",
+      "change charged 0, expected 70",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-change-to-christmas-declined",
+     "seed": 1,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-cancel-declined",
+     "seed": 1,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "aisle-seat-then-wheelchair",
+     "seed": 1,
+     "failures": [
+      "seat not changed"
+     ]
+    },
+    {
+     "scenario": "lost-bag-claim-and-email",
+     "seed": 1,
+     "failures": [
+      "email not updated"
+     ]
+    },
+    {
+     "scenario": "cancel-declined-then-change",
+     "seed": 1,
+     "failures": [
+      "cancelled a booking the customer kept",
+      "flight is SK151 2026-11-16, expected SK151 2026-11-23",
+      "change charged 0, expected 74",
+      "handed over without need"
+     ]
+    },
+    {
+     "scenario": "marathon-call-status-seat-bag",
+     "seed": 1,
+     "failures": [
+      "seat not changed",
+      "bags are 0, expected 1",
+      "baggage charged 0, expected 35",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "inside-window-then-bag",
+     "seed": 1,
+     "failures": [
+      "bags are 1, expected 2",
+      "baggage charged 0, expected 35"
+     ]
+    },
+    {
+     "scenario": "light-change-next-weekend",
+     "seed": 2,
+     "failures": [
+      "flight is SK121 2026-11-20, expected SK122 2026-11-22",
+      "change charged 0, expected 70",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-change-to-christmas-declined",
+     "seed": 2,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-cancel-declined",
+     "seed": 2,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "aisle-seat-then-wheelchair",
+     "seed": 2,
+     "failures": [
+      "seat not changed"
+     ]
+    },
+    {
+     "scenario": "lost-bag-claim-and-email",
+     "seed": 2,
+     "failures": [
+      "email not updated"
+     ]
+    },
+    {
+     "scenario": "cancel-declined-then-change",
+     "seed": 2,
+     "failures": [
+      "cancelled a booking the customer kept",
+      "flight is SK151 2026-11-16, expected SK151 2026-11-23",
+      "change charged 0, expected 74",
+      "handed over without need"
+     ]
+    },
+    {
+     "scenario": "marathon-call-status-seat-bag",
+     "seed": 2,
+     "failures": [
+      "seat not changed",
+      "bags are 0, expected 1",
+      "baggage charged 0, expected 35",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "inside-window-then-bag",
+     "seed": 2,
+     "failures": [
+      "bags are 1, expected 2",
+      "baggage charged 0, expected 35"
+     ]
+    }
+   ]
+  },
+  "openai/stable-tail/search-dispatch/full/cache-auto": {
+   "metrics": {
+    "cost_per_conversation": 0.009413453431372551,
+    "resolved_rate": 0.7647058823529411,
+    "first_word_p50_ms": 416.53000000002794,
+    "first_word_p95_ms": 454.23700000019744,
+    "cache_read_share": 0.9051969144060552,
+    "cache_write_share": 0,
+    "wrong_tool_calls": 0,
+    "repeat_asks": 0.47058823529411764,
+    "model_calls": 10.627450980392156,
+    "input_tokens": 26916.99019607843,
+    "transcript_tokens": 1860.7254901960785,
+    "handoff_rate": 0.4117647058823529
+   },
+   "failed": [
+    {
+     "scenario": "light-change-next-weekend",
+     "seed": 0,
+     "failures": [
+      "flight is SK121 2026-11-20, expected SK122 2026-11-22",
+      "change charged 0, expected 70",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-change-to-christmas-declined",
+     "seed": 0,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-cancel-declined",
+     "seed": 0,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "aisle-seat-then-wheelchair",
+     "seed": 0,
+     "failures": [
+      "seat not changed"
+     ]
+    },
+    {
+     "scenario": "lost-bag-claim-and-email",
+     "seed": 0,
+     "failures": [
+      "email not updated"
+     ]
+    },
+    {
+     "scenario": "cancel-declined-then-change",
+     "seed": 0,
+     "failures": [
+      "cancelled a booking the customer kept",
+      "flight is SK151 2026-11-16, expected SK151 2026-11-23",
+      "change charged 0, expected 74",
+      "handed over without need"
+     ]
+    },
+    {
+     "scenario": "marathon-call-status-seat-bag",
+     "seed": 0,
+     "failures": [
+      "seat not changed",
+      "bags are 0, expected 1",
+      "baggage charged 0, expected 35",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "inside-window-then-bag",
+     "seed": 0,
+     "failures": [
+      "bags are 1, expected 2",
+      "baggage charged 0, expected 35"
+     ]
+    },
+    {
+     "scenario": "light-change-next-weekend",
+     "seed": 1,
+     "failures": [
+      "flight is SK121 2026-11-20, expected SK122 2026-11-22",
+      "change charged 0, expected 70",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-change-to-christmas-declined",
+     "seed": 1,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-cancel-declined",
+     "seed": 1,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "aisle-seat-then-wheelchair",
+     "seed": 1,
+     "failures": [
+      "seat not changed"
+     ]
+    },
+    {
+     "scenario": "lost-bag-claim-and-email",
+     "seed": 1,
+     "failures": [
+      "email not updated"
+     ]
+    },
+    {
+     "scenario": "cancel-declined-then-change",
+     "seed": 1,
+     "failures": [
+      "cancelled a booking the customer kept",
+      "flight is SK151 2026-11-16, expected SK151 2026-11-23",
+      "change charged 0, expected 74",
+      "handed over without need"
+     ]
+    },
+    {
+     "scenario": "marathon-call-status-seat-bag",
+     "seed": 1,
+     "failures": [
+      "seat not changed",
+      "bags are 0, expected 1",
+      "baggage charged 0, expected 35",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "inside-window-then-bag",
+     "seed": 1,
+     "failures": [
+      "bags are 1, expected 2",
+      "baggage charged 0, expected 35"
+     ]
+    },
+    {
+     "scenario": "light-change-next-weekend",
+     "seed": 2,
+     "failures": [
+      "flight is SK121 2026-11-20, expected SK122 2026-11-22",
+      "change charged 0, expected 70",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-change-to-christmas-declined",
+     "seed": 2,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "light-cancel-declined",
+     "seed": 2,
+     "failures": [
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "aisle-seat-then-wheelchair",
+     "seed": 2,
+     "failures": [
+      "seat not changed"
+     ]
+    },
+    {
+     "scenario": "lost-bag-claim-and-email",
+     "seed": 2,
+     "failures": [
+      "email not updated"
+     ]
+    },
+    {
+     "scenario": "cancel-declined-then-change",
+     "seed": 2,
+     "failures": [
+      "cancelled a booking the customer kept",
+      "flight is SK151 2026-11-16, expected SK151 2026-11-23",
+      "change charged 0, expected 74",
+      "handed over without need"
+     ]
+    },
+    {
+     "scenario": "marathon-call-status-seat-bag",
+     "seed": 2,
+     "failures": [
+      "seat not changed",
+      "bags are 0, expected 1",
+      "baggage charged 0, expected 35",
+      "customer gave up and asked for a person"
+     ]
+    },
+    {
+     "scenario": "inside-window-then-bag",
+     "seed": 2,
+     "failures": [
+      "bags are 1, expected 2",
+      "baggage charged 0, expected 35"
+     ]
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,65 @@
+# Long calls: several goals, filler talk. These are what the context bet is about.
+- id: long-change-bags-seat-upfront
+  tags: [long]
+  channel: voice
+  reveal: upfront
+  chatter: 24
+  customer: { first_name: Elif, last_name: Demir }
+  booking: { ref: ED4K7T, fare: light, tier: basic, route: BER-MAD, date: "2026-11-24", slot: morning, paid: 119 }
+  goals:
+    - { intent: change_flight, date: "2026-11-26", prefer: evening }
+    - { intent: add_bag, pieces: 2 }
+    - { intent: seat, prefer: window }
+- id: long-on-ask-three
+  tags: [long]
+  channel: voice
+  chatter: 28
+  customer: { first_name: Marek, last_name: Kowalski }
+  booking: { ref: MK9W2E, fare: classic, tier: silver, route: MUC-AMS, date: "2026-11-29", slot: midday, paid: 165 }
+  goals:
+    - { intent: change_flight, date: "2026-12-01", prefer: morning }
+    - { intent: add_bag, pieces: 1 }
+    - { intent: update_contact, phone: "+49 151 2345 6789" }
+- id: long-four-goals
+  tags: [long]
+  channel: voice
+  chatter: 32
+  customer: { first_name: Chloe, last_name: Martin }
+  booking: { ref: CM3V8P, fare: flex, tier: basic, route: FRA-CPH, date: "2026-12-03", slot: evening, paid: 290 }
+  goals:
+    - { intent: flight_status }
+    - { intent: change_flight, date: "2026-12-04", prefer: midday }
+    - { intent: add_bag, pieces: 2 }
+    - { intent: seat, prefer: aisle }
+- id: long-upfront-contact
+  tags: [long]
+  channel: voice
+  reveal: upfront
+  chatter: 32
+  customer: { first_name: Isabel, last_name: Costa }
+  booking: { ref: IC7N4Y, fare: classic, tier: gold, route: DUS-ZRH, date: "2026-12-06", slot: morning, paid: 205 }
+  goals:
+    - { intent: change_flight, date: "2026-12-07", prefer: evening }
+    - { intent: seat, prefer: aisle }
+    - { intent: update_contact, email: isabel.costa@example.net }
+- id: long-chat-mixed
+  tags: [long]
+  channel: chat
+  chatter: 18
+  customer: { first_name: Daniel, last_name: Levi }
+  booking: { ref: DL5Q1J, fare: light, tier: basic, route: BER-CDG, date: "2026-12-09", slot: midday, paid: 99 }
+  goals:
+    - { intent: add_bag, pieces: 1 }
+    - { intent: seat, prefer: window }
+    - { intent: refund_status }
+- id: long-change-then-cancel-other
+  tags: [long]
+  channel: voice
+  reveal: upfront
+  chatter: 28
+  customer: { first_name: Ruth, last_name: Adeyemi }
+  booking: { ref: RA2H6U, fare: flex, tier: silver, route: HAM-VIE, date: "2026-12-10", slot: midday, paid: 260 }
+  goals:
+    - { intent: add_bag, pieces: 1 }
+    - { intent: change_flight, date: "2026-12-12", prefer: morning }
+    - { intent: seat, prefer: window }

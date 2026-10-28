@@ -1,0 +1,4 @@
+node_modules
+apps/console/dist
+apps/console/test-results
+.git

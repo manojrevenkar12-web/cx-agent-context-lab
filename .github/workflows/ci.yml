@@ -1,0 +1,60 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    name: lint, types, unit and integration tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22.22", cache: npm }
+      - run: npm ci --no-audit --no-fund
+      - run: npx biome check .
+      - run: npx tsc -p . && npx tsc -p apps/console
+      - run: npx vitest run
+
+  lab:
+    name: bets regenerate byte-for-byte, release gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22.22", cache: npm }
+      - run: npm ci --no-audit --no-fund
+      - run: npm run lab -- bets
+      - name: committed reports match a fresh run
+        run: git diff --exit-code reports/
+      - run: npm run lab -- gate
+      - name: held-out first run is unchanged
+        run: git diff --exit-code reports/heldout/*/first_run.json heldout/
+
+  console:
+    name: console build, component and end-to-end tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22.22", cache: npm }
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+        working-directory: apps/console
+      - run: npx vitest run
+        working-directory: apps/console
+      - run: npx playwright test
+        working-directory: apps/console
+
+  image:
+    name: container image builds and serves
+    runs-on: ubuntu-latest
+    needs: check
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f deploy/Dockerfile -t cx-agent-context-lab .
+      - run: |
+          docker run -d -p 8787:8787 --name lab cx-agent-context-lab
+          for i in $(seq 1 30); do curl -sf localhost:8787/api/health && break; sleep 2; done
+          curl -sf localhost:8787/api/results | head -c 200
+          curl -sf localhost:8787/ | grep -q "Context Lab"
